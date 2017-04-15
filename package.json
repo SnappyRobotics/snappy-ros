@@ -1,0 +1,19 @@
+{
+  "name": "snappy-ros",
+  "version": "0.1.0",
+  "description": "Node-red ROS connector based on rosnodejs lib",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SnappyRobotics/snappy-ros.git"
+  },
+  "author": "Prajankya",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/SnappyRobotics/snappy-ros/issues"
+  },
+  "homepage": "https://github.com/SnappyRobotics/snappy-ros#readme"
+}
