@@ -1,3 +1,6 @@
+"use strict";
+
+/*
 module.exports = function(RED) {
   return function(config) {
     var ROSLIB = require('roslib');
@@ -60,3 +63,4 @@ module.exports = function(RED) {
     node.closing = false;
   }
 }
+*/
