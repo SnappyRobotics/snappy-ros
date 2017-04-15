@@ -15,9 +15,17 @@
     "email": "contact@prajankya.me",
     "url": "https://prajankya.me/"
   },
+  "keywords": [
+    "node-red",
+    "ros",
+    "snappy"
+  ],
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/SnappyRobotics/snappy-ros/issues"
   },
-  "homepage": "https://github.com/SnappyRobotics/snappy-ros#readme"
+  "homepage": "https://github.com/SnappyRobotics/snappy-ros#readme",
+  "dependencies": {
+    "rosnodejs": "^2.0.1"
+  }
 }
