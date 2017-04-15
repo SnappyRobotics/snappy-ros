@@ -35,6 +35,7 @@
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-contrib-jshint": "^1.1.0",
+    "istanbul": "^0.4.5",
     "nodemon": "^1.11.0"
   }
 }
