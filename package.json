@@ -10,7 +10,11 @@
     "type": "git",
     "url": "git+https://github.com/SnappyRobotics/snappy-ros.git"
   },
-  "author": "Prajankya",
+  "author": {
+    "name": "Prajankya Sonar",
+    "email": "contact@prajankya.me",
+    "url": "https://prajankya.me/"
+  },
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/SnappyRobotics/snappy-ros/issues"
