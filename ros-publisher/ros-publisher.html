@@ -1,0 +1,93 @@
+<script type="text/javascript">
+	RED.nodes.registerType('ros-publisher', {
+		category: 'ROS',
+		color: '#fef5ff',
+		defaults: {
+			node: {
+				type: "ros-node-config"
+			},
+			topicname: {
+				value: "",
+				required: true
+			},
+			typepackage: {
+				required: true
+			},
+			typename: {
+				required: true
+			}
+		},
+		inputs: 1,
+		outputs: 0,
+		paletteLabel: 'publisher',
+		icon: "ros_logo.png",
+		label: function() {
+			return this.topicname || "ros publisher"
+		},
+		oneditprepare: function() {
+			var node = this;
+
+			$.getJSON('packages', function(data) {
+				var output = []
+				$.each(data, function(key, value) {
+					output.push('<option value="' + key + '">' + key + '</option>')
+				})
+				$('#node-input-typepackage').html(output.join(''))
+
+				$("#node-input-typepackage option:contains(std_msgs)")
+					.attr('selected', true)
+
+				$('#node-input-typepackage').change(function() {
+					loadPackage(this.value)
+				})
+				if (node.typepackage) {
+					loadPackage(node.typepackage);
+				} else if (node.typepackage && node.typename) {
+					loadPackage(node.typepackage, node.typename);
+				} else {
+					loadPackage('std_msgs', 'String')
+				}
+			})
+
+			var loadPackage = function(package, message) {
+				$.getJSON('packages/' + package, function(data) {
+					var output = []
+					for (var i = 0; i < data.length; i++) {
+						output.push('<option value="' + data[i] + '">' + data[i] + '</option>')
+					}
+					$('#node-input-typename').html(output.join(''))
+					if (message) {
+						$("#node-input-typename option:contains(" + message + ")")
+							.attr('selected', true)
+					}
+				})
+			}
+		}
+	})
+</script>
+
+<script type="text/x-red" data-template-name="ros-publisher">
+	<div class="form-row">
+		<label for="node-input-node"><i class="fa fa-user"></i> ROS Node</label>
+		<input type="text" id="node-input-node">
+	</div>
+	<div class="form-row">
+		<label for="node-input-topicname"><i class="icon-tag"></i> Topic</label>
+		<input type="text" id="node-input-topicname" placeholder="/mytopic">
+	</div>
+
+	<div class="form-row">
+		<label for="node-input-typepackage">Datatype package</label>
+		<select id="node-input-typepackage"></select>
+	</div>
+
+	<div class="form-row">
+		<label for="node-input-typename">Datatype</label>
+		<select id="node-input-typename"></select>
+	</div>
+</script>
+
+
+<script type="text/x-red" data-help-name="ros-publisher">
+	<p>A node that publish to a ROS topic</p>
+</script>
