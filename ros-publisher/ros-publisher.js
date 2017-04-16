@@ -41,9 +41,13 @@ module.exports = function(RED) {
 		})
 
 		node.on('input', function(msg) {
-			node.pub.publish({
-				data: msg.payload
-			})
+			var msgType = rosnodejs.require(config.typepackage)
+				.msg[config.typename]
+
+			var x = new msgType()
+			x.data = msg.payload
+
+			node.pub.publish(x)
 		})
 	}
 	RED.nodes.registerType("ros-publisher", ros_publisher);
