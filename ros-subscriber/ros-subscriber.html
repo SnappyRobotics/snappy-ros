@@ -34,30 +34,31 @@
 				})
 				$('#node-input-typepackage').html(output.join(''))
 
-				$("#node-input-typepackage option:contains(std_msgs)")
-					.attr('selected', true)
-
 				$('#node-input-typepackage').change(function() {
 					loadPackage(this.value)
 				})
-				if (node.typepackage) {
-					loadPackage(node.typepackage);
-				} else if (node.typepackage && node.typename) {
+
+				if (node.typepackage && node.typename) {
 					loadPackage(node.typepackage, node.typename);
+				} else if (node.typepackage) {
+					loadPackage(node.typepackage);
 				} else {
 					loadPackage('std_msgs', 'String')
 				}
 			})
 
-			var loadPackage = function(package, message) {
+			var loadPackage = function(package, messageType) {
+				$("#node-input-typepackage option:contains(" + package + ")")
+					.attr('selected', true)
+
 				$.getJSON('packages/' + package, function(data) {
 					var output = []
 					for (var i = 0; i < data.length; i++) {
 						output.push('<option value="' + data[i] + '">' + data[i] + '</option>')
 					}
 					$('#node-input-typename').html(output.join(''))
-					if (message) {
-						$("#node-input-typename option:contains(" + message + ")")
+					if (messageType) {
+						$("#node-input-typename option:contains(" + messageType + ")")
 							.attr('selected', true)
 					}
 				})
