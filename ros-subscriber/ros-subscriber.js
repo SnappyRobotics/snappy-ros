@@ -46,11 +46,6 @@ module.exports = function(RED) {
 				payload: msg.data
 			})
 		}
-
-
-		// if (!node.ros_node) {
-		// 	return
-		// }
 	}
 
 	RED.nodes.registerType("ros-subscriber", ros_subscriber);
