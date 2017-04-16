@@ -14,6 +14,42 @@
 		window.list_package = o2
 	})
 
+	function setFormatText(package) {
+		if (window.oldPackage != package) {
+			window.oldPackage = package
+			$.getJSON('ROSInfo/' + package, function(data) {
+				var v = syntaxHighlight(data)
+				console.log(v)
+				// $("#msg_format").html(v + "")
+				document.getElementById('msg_format').innerHTML = v;
+				console.log($("#msg_format").html())
+			})
+		}
+	}
+
+
+	function syntaxHighlight(json) {
+		if (typeof json != 'string') {
+			json = JSON.stringify(json, undefined, 2);
+		}
+		json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+		return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+			var cls = 'number';
+			if (/^"/.test(match)) {
+				if (/:$/.test(match)) {
+					cls = 'key';
+				} else {
+					cls = 'string';
+				}
+			} else if (/true|false/.test(match)) {
+				cls = 'boolean';
+			} else if (/null/.test(match)) {
+				cls = 'null';
+			}
+			return '<span class="' + cls + '">' + match + '</span>';
+		});
+	}
+
 	RED.nodes.registerType('ros-publisher', {
 		category: 'ROS',
 		color: '#fef5ff',
@@ -79,12 +115,41 @@
 				node.typepackage = this.value
 				loadPackage()
 			})
+
+			$('#node-input-typename').change(function() {
+				node.typename = this.value
+				setFormatText(node.typepackage + "/" + node.typename)
+			})
+
 			loadPackage()
+			setFormatText(node.typepackage + "/" + node.typename)
 		}
 	})
 </script>
 
 <script type="text/x-red" data-template-name="ros-publisher">
+	<style>
+		.key {
+			// color: #CC0000;
+		}
+
+		.string {
+			color: #007777;
+		}
+
+		.number {
+			color: #AA00AA;
+		}
+
+		.boolean {
+			color: #0000FF;
+		}
+
+		.null {
+			color: #0000FF;
+			font-weight: bold;
+		}
+	</style>
 	<div class="form-row">
 		<label for="node-input-node"><i class="fa fa-user"></i> ROS Node</label>
 		<input type="text" id="node-input-node">
@@ -103,9 +168,21 @@
 		<label for="node-input-typename">Datatype</label>
 		<select id="node-input-typename"></select>
 	</div>
+
+	<h4>Input is expected in the format:</h4>
+	<pre id="msg_format">
+	</pre>
 </script>
 
 
 <script type="text/x-red" data-help-name="ros-publisher">
+
 	<p>A node that publish to a ROS topic</p>
+	<h3>Inputs</h3>
+	<dl class="message-properties">
+		<dt>
+			payload
+    </dt>
+		<dd> the payload of the message to publish</dd>
+	</dl>
 </script>

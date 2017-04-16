@@ -60,6 +60,12 @@ module.exports = function(RED) {
 		res.json(o)
 	})
 
+	RED.httpAdmin.get("/ROSInfo/:package/:messageType", function(req, res) {
+		var q = rosnodejs.require(req.params.package)
+			.msg[req.params.messageType]
+		var x = new q()
+		res.json(JSON.parse(JSON.stringify(x)))
+	})
 
 	RED.nodes.registerType('ros-node-config', ros_node_config);
 }
