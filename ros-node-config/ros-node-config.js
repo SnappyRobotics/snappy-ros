@@ -37,19 +37,29 @@ module.exports = function(RED) {
 
 	//routes
 	RED.httpAdmin.get("/packages", function(req, res) {
-		res.json(rosnodejs.getAvailableMessagePackages())
-	})
-
-	RED.httpAdmin.get("/packages/:package", function(req, res) {
-		var x = rosnodejs.require(req.params.package).msg
-		var o = []
+		var x = rosnodejs.getAvailableMessagePackages()
+		var a = []
 		for (var key in x) {
 			if (x.hasOwnProperty(key)) {
-				o.push(key)
+				a.push(key)
 			}
+		}
+		a = a.sort()
+		var o = {}
+		for (var i = 0; i < a.length; i++) {
+			var xy = rosnodejs.require(a[i]).msg
+			var ar = []
+			for (var k in xy) {
+				if (xy.hasOwnProperty(k)) {
+					ar.push(k)
+				}
+			}
+			ar = ar.sort()
+			o[a[i]] = ar
 		}
 		res.json(o)
 	})
+
 
 	RED.nodes.registerType('ros-node-config', ros_node_config);
 }
