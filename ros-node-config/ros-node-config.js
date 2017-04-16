@@ -24,7 +24,8 @@ module.exports = function(RED) {
     function startNode() {
       debug('starting ROS node')
       node.emit('connnecting to ros')
-      node.log('connecting')
+      node.log('connnecting to ros')
+
       /*
       rosNode._masterApi.getXmlrpcClient().once('ECONNREFUSED', (err) => {
 
@@ -37,7 +38,9 @@ module.exports = function(RED) {
         })
     }
 
-    startNode()
+    setTimeout(function() {
+      startNode()
+    }, 10);
     node.closing = false;
   }
   RED.nodes.registerType('ros-node-config', ros_node_config);

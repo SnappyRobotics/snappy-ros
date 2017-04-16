@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
 const rosnodejs = require('rosnodejs');
-const debug = require('debug')("snappy:ros:subscriber");
+const debug = require('debug')('snappy:ros:subscriber');
 
 module.exports = function(RED) {
   function ros_subscriber(config) {
@@ -10,9 +10,18 @@ module.exports = function(RED) {
 
     node.ros_node = RED.nodes.getNode(config.node);
 
-    if (!node.ros_node || !node.ros_node.nh) {
+    if (!node.ros_node) {
       return;
     }
+
+    node.ros_node.on('connnecting to ros', () => {
+      debug('connecting')
+      node.status({
+        fill: 'yellow',
+        shape: 'ring',
+        text: 'connecting to ros master..'
+      })
+    })
     /*
     // if topic has not been advertised yet, keep trying again
     function topicQuery(topic) {
