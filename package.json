@@ -12,7 +12,8 @@
   },
   "node-red": {
     "nodes": {
-      "ros": "ros.js"
+      "ros-node-config": "ros-node-config/ros-node-config.js",
+      "ros-subsciber": "ros-subscriber/ros-subscriber.js"
     }
   },
   "author": {

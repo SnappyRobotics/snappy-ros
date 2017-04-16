@@ -1,16 +1,16 @@
-"use strict";
+'use strict';
 
 const rosnodejs = require('rosnodejs');
-const debug = require('debug')("snappy:ros:server");
+const debug = require('debug')('snappy:ros:config');
 
 module.exports = function(RED) {
-  return function(config) {
+  function ros_node_config(config) {
     RED.nodes.createNode(this, config);
     var node = this;
 
     node.closing = false;
-    node.on("close", function() {
-      debug("On close")
+    node.on('close', function() {
+      debug('On close')
       node.closing = true;
       if (node.tout) {
         clearTimeout(node.tout);
@@ -20,10 +20,19 @@ module.exports = function(RED) {
       }
     })
 
+
     function startNode() {
-      debug('starting Node')
-      rosnodejs.initNode('snappy_core')
+      debug('starting ROS node')
+      node.emit('connnecting to ros')
+      node.log('connecting')
+      /*
+      rosNode._masterApi.getXmlrpcClient().once('ECONNREFUSED', (err) => {
+
+      })
+      */
+      rosnodejs.initNode(config.name)
         .then((nodeHandle) => {
+          debug('ROS node started')
           node.nh = nodeHandle
         })
     }
@@ -31,6 +40,7 @@ module.exports = function(RED) {
     startNode()
     node.closing = false;
   }
+  RED.nodes.registerType('ros-node-config', ros_node_config);
 }
 /*
 module.exports = function(RED) {

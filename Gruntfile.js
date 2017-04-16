@@ -30,7 +30,8 @@ module.exports = function(grunt) {
       },
       all: [
         'ros.js',
-        'ros-server/**/*.js'
+        'ros-server/**/*.js',
+        'ros-subsciber/**/*.js'
       ]
     }
   })

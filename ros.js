@@ -3,7 +3,15 @@
 const path = require('path');
 
 module.exports = function(RED) {
-  var RosServerNode = require(path.join(__dirname, 'ros-server', 'ros-server'))(RED);
+  var RosNodeConfig = require(path.join(
+    __dirname,
+    'ros-node-config',
+    'ros-node-config'
+  ))(RED)
 
-  RED.nodes.registerType("ros-server", RosServerNode);
+  RED.nodes.registerType("ros-node-config", RosNodeConfig)
+
+
+  var RosSubscriberNode = require(path.join(__dirname, 'ros-subscriber', 'ros-subscriber'))(RED)
+  RED.nodes.registerType("ros-subscriber", RosSubscriberNode)
 }
