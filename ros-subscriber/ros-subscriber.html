@@ -12,74 +12,74 @@
 		}
 		window.list_package_html = o
 		window.list_package = o2
+	})
 
-		RED.nodes.registerType('ros-subscriber', {
-			category: 'ROS',
-			color: '#fef5ff',
-			defaults: {
-				node: {
-					type: "ros-node-config"
-				},
-				topicname: {
-					value: "",
-					required: true
-				},
-				typepackage: {
-					validate: function(v) {
-						return (window.list_package.indexOf(v) > -1)
-					},
-					required: true
-				},
-				typename: {
-					validate: function(v) {
-						return (window.list[this.typepackage].indexOf(v) > -1)
-					},
-					required: true
-				}
+	RED.nodes.registerType('ros-subscriber', {
+		category: 'ROS',
+		color: '#fef5ff',
+		defaults: {
+			node: {
+				type: "ros-node-config"
 			},
-			inputs: 0,
-			outputs: 1,
-			paletteLabel: 'subscriber',
-			icon: "ros_logo.png",
-			label: function() {
-				return this.topicname || "ros subscriber"
+			topicname: {
+				value: "",
+				required: true
 			},
-			oneditprepare: function() {
-				var node = this;
-
-				if (!node.typepackage) {
-					node.typepackage = 'std_msgs'
-				}
-
-				if (!node.typename) {
-					node.typename = 'String'
-				}
-
-				$('#node-input-typepackage')
-					.html(window.list_package_html)
-					.val(node.typepackage)
-
-				var loadPackage = function() {
-					var ar2 = window.list[node.typepackage]
-
-					var o = ""
-					for (var i = 0; i < ar2.length; i++) {
-						o += '<option value="' + ar2[i] + '">' + ar2[i] + '</option>'
-					}
-
-					$('#node-input-typename').html(o)
-					$("#node-input-typename")
-						.val(node.typename)
-				}
-
-
-				$('#node-input-typepackage').change(function() {
-					node.typepackage = this.value
-					loadPackage()
-				})
-				loadPackage()
+			typepackage: {
+				validate: function(v) {
+					return (window.list_package.indexOf(v) > -1)
+				},
+				required: true
+			},
+			typename: {
+				validate: function(v) {
+					return (window.list_package.indexOf(this.typepackage) > -1) && (window.list[this.typepackage].indexOf(v) > -1)
+				},
+				required: true
 			}
-		})
+		},
+		inputs: 0,
+		outputs: 1,
+		paletteLabel: 'subscriber',
+		icon: "ros_logo.png",
+		label: function() {
+			return this.topicname || "ros subscriber"
+		},
+		oneditprepare: function() {
+			var node = this;
+
+			if (!node.typepackage) {
+				node.typepackage = 'std_msgs'
+			}
+
+			if (!node.typename) {
+				node.typename = 'String'
+			}
+
+			$('#node-input-typepackage')
+				.html(window.list_package_html)
+				.val(node.typepackage)
+
+			var loadPackage = function() {
+				var ar2 = window.list[node.typepackage]
+
+				var o = ""
+				for (var i = 0; i < ar2.length; i++) {
+					o += '<option value="' + ar2[i] + '">' + ar2[i] + '</option>'
+				}
+
+				$('#node-input-typename').html(o)
+				$("#node-input-typename")
+					.val(node.typename)
+			}
+
+
+			$('#node-input-typepackage').change(function() {
+				node.typepackage = this.value
+				loadPackage()
+			})
+			loadPackage()
+		}
 	})
 </script>
 
@@ -108,4 +108,3 @@
 <script type="text/x-red" data-help-name="ros-subscriber">
 	<p>A node that subscribe to a ROS topic</p>
 </script>
-t>

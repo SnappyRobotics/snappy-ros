@@ -1,7 +1,23 @@
 <script type="text/javascript">
+	$.getJSON('packages', function(list) {
+		window.list = list
+
+		var o = ""
+		var o2 = []
+		for (var key in window.list) {
+			if (window.list.hasOwnProperty(key)) {
+				o += '<option value="' + key + '">' + key + '</option>'
+				o2.push(key)
+			}
+		}
+		window.list_package_html = o
+		window.list_package = o2
+	})
+
 	RED.nodes.registerType('ros-publisher', {
 		category: 'ROS',
 		color: '#fef5ff',
+		align: 'right',
 		defaults: {
 			node: {
 				type: "ros-node-config"
@@ -11,9 +27,15 @@
 				required: true
 			},
 			typepackage: {
+				validate: function(v) {
+					return (window.list_package.indexOf(v) > -1)
+				},
 				required: true
 			},
 			typename: {
+				validate: function(v) {
+					return (window.list_package.indexOf(this.typepackage) > -1) && (window.list[this.typepackage].indexOf(v) > -1)
+				},
 				required: true
 			}
 		},
@@ -27,42 +49,37 @@
 		oneditprepare: function() {
 			var node = this;
 
-			$.getJSON('packages', function(data) {
-				var output = []
-				$.each(data, function(key, value) {
-					output.push('<option value="' + key + '">' + key + '</option>')
-				})
-				$('#node-input-typepackage').html(output.join(''))
-
-				$('#node-input-typepackage').change(function() {
-					loadPackage(this.value)
-				})
-
-				if (node.typepackage && node.typename) {
-					loadPackage(node.typepackage, node.typename);
-				} else if (node.typepackage) {
-					loadPackage(node.typepackage);
-				} else {
-					loadPackage('std_msgs', 'String')
-				}
-			})
-
-			var loadPackage = function(package, messageType) {
-				$("#node-input-typepackage option:contains(" + package + ")")
-					.attr('selected', true)
-
-				$.getJSON('packages/' + package, function(data) {
-					var output = []
-					for (var i = 0; i < data.length; i++) {
-						output.push('<option value="' + data[i] + '">' + data[i] + '</option>')
-					}
-					$('#node-input-typename').html(output.join(''))
-					if (messageType) {
-						$("#node-input-typename option:contains(" + messageType + ")")
-							.attr('selected', true)
-					}
-				})
+			if (!node.typepackage) {
+				node.typepackage = 'std_msgs'
 			}
+
+			if (!node.typename) {
+				node.typename = 'String'
+			}
+
+			$('#node-input-typepackage')
+				.html(window.list_package_html)
+				.val(node.typepackage)
+
+			var loadPackage = function() {
+				var ar2 = window.list[node.typepackage]
+
+				var o = ""
+				for (var i = 0; i < ar2.length; i++) {
+					o += '<option value="' + ar2[i] + '">' + ar2[i] + '</option>'
+				}
+
+				$('#node-input-typename').html(o)
+				$("#node-input-typename")
+					.val(node.typename)
+			}
+
+
+			$('#node-input-typepackage').change(function() {
+				node.typepackage = this.value
+				loadPackage()
+			})
+			loadPackage()
 		}
 	})
 </script>

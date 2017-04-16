@@ -18,6 +18,16 @@ module.exports = function(RED) {
 			})
 		})
 
+		node.on('input', function(msg) {
+			var msgType = rosnodejs.require(config.typepackage)
+				.msg[config.typename]
+
+			var x = new msgType()
+			x.data = msg.payload
+
+			node.pub.publish(x)
+		})
+
 		node.ros_node.on('connnected to ros', () => {
 			node.status({
 				fill: 'green',
@@ -35,20 +45,12 @@ module.exports = function(RED) {
 				})
 			})
 		})
+
 		node.on('close', function() {
 			debug('Unpublishing node while closing publisher on topic :', config.topicname)
 			node.ros_node.nh.unadvertise(config.topicname)
 		})
-
-		node.on('input', function(msg) {
-			var msgType = rosnodejs.require(config.typepackage)
-				.msg[config.typename]
-
-			var x = new msgType()
-			x.data = msg.payload
-
-			node.pub.publish(x)
-		})
 	}
+
 	RED.nodes.registerType("ros-publisher", ros_publisher);
 }
