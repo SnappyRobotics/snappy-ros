@@ -5,13 +5,13 @@ const debug = require('debug')('snappy:ros:subscriber')
 
 module.exports = function(RED) {
   function ros_subscriber(config) {
-    RED.nodes.createNode(this, config);
-    var node = this;
+    RED.nodes.createNode(this, config)
+    var node = this
 
-    node.ros_node = RED.nodes.getNode(config.node);
+    node.ros_node = RED.nodes.getNode(config.node)
 
     if (!node.ros_node) {
-      return;
+      return
     }
 
     node.ros_node.on('connnecting to ros', () => {
@@ -48,8 +48,13 @@ module.exports = function(RED) {
     var sub_callback = function(msg) {
       node.send({
         payload: msg.data
-      });
+      })
     }
+
+    //routes
+    RED.httpAdmin.get("/rosMessagePackages", function(req, res) {
+      res.json(rosnodejs.getAvailableMessagePackages())
+    })
 
     /*
     node.server.on('ros error', () => {

@@ -21,6 +21,25 @@
 		icon: "ros_logo.png",
 		label: function() {
 			return this.topicname || "ros subscriber"
+		},
+		oneditprepare: function() {
+			var node = this;
+
+			$.getJSON('rosMessagePackages', function(data) {
+				var output = []
+				$.each(data, function(key, value) {
+					output.push('<option value="' + key + '">' + key + '</option>')
+				})
+				$('#node-input-typepackage').html(output.join(''))
+
+				$("#node-input-typepackage option:contains(std_msgs)")
+					.attr('selected', true)
+
+				$('#node-input-typepackage').select(function() {
+
+				})
+			})
+
 		}
 	})
 </script>
@@ -38,6 +57,11 @@
 	<div class="form-row">
 		<label for="node-input-topictype"><i class="icon-tag"></i> Topic type</label>
 		<input type="text" id="node-input-topictype" placeholder="std_msgs/String">
+	</div>
+
+	<div class="form-row">
+		<label for="node-input-typepackage">Datatype package</label>
+		<select id="node-input-typepackage"></select>
 	</div>
 </script>
 
