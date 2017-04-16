@@ -18,6 +18,12 @@ module.exports = function(RED) {
 			})
 		})
 
+		var sub_callback = function(msg) {
+			node.send({
+				payload: msg
+			})
+		}
+
 		node.ros_node.on('connnected to ros', () => {
 			node.status({
 				fill: 'green',
@@ -41,11 +47,6 @@ module.exports = function(RED) {
 			node.ros_node.nh.unsubscribe(config.topicname)
 		})
 
-		var sub_callback = function(msg) {
-			node.send({
-				payload: msg.data
-			})
-		}
 	}
 
 	RED.nodes.registerType("ros-subscriber", ros_subscriber);
