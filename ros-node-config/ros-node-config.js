@@ -29,90 +29,27 @@ module.exports = function(RED) {
 				})
 		}
 
-		//routes
-		RED.httpAdmin.get("/packages", function(req, res) {
-			res.json(rosnodejs.getAvailableMessagePackages())
-		})
-
-		RED.httpAdmin.get("/packages/:package", function(req, res) {
-			var x = rosnodejs.require(req.params.package).msg
-			var o = []
-			for (var key in x) {
-				if (x.hasOwnProperty(key)) {
-					o.push(key)
-				}
-			}
-			res.json(o)
-		})
 
 		setTimeout(function() {
 			startNode()
 		}, 10)
 	}
 
+	//routes
+	RED.httpAdmin.get("/packages", function(req, res) {
+		res.json(rosnodejs.getAvailableMessagePackages())
+	})
+
+	RED.httpAdmin.get("/packages/:package", function(req, res) {
+		var x = rosnodejs.require(req.params.package).msg
+		var o = []
+		for (var key in x) {
+			if (x.hasOwnProperty(key)) {
+				o.push(key)
+			}
+		}
+		res.json(o)
+	})
+
 	RED.nodes.registerType('ros-node-config', ros_node_config);
 }
-/*
-module.exports = function(RED) {
-  return function(config) {
-    var ROSLIB = require('roslib');
-
-    RED.nodes.createNode(this, config);
-    var node = this;
-
-    node.closing = false;
-    node.on("close", function() {
-      node.closing = true;
-      if (node.tout) {
-        clearTimeout(node.tout);
-      }
-      if (node.ros) {
-        node.ros.close();
-      }
-    });
-
-    var trials = 0;
-
-    function startconn() { // Connect to remote endpoint
-      var ros = new ROSLIB.Ros({
-        url: config.url
-      });
-      node.ros = ros; // keep for closing
-      handleConnection(ros);
-    }
-
-    function handleConnection(ros) {
-      ros.on('connection', function() {
-        node.emit('ros connected');
-        node.log('connected');
-      });
-
-      ros.on('error', function(error) {
-        trials++;
-        node.emit('ros error');
-        node.log('Error connecting : ', error);
-        if (!node.closing) {
-          node.log('reconnecting');
-          node.tout = setTimeout(function() {
-            startconn();
-          }, Math.pow(2, trials) * 1000);
-        }
-      });
-
-      ros.on('close', function() {
-        node.emit('ros closed');
-        node.log('Connection closed');
-        if (!node.closing) {
-          node.log('reconnecting');
-          node.tout = setTimeout(function() {
-            startconn();
-          }, 1000);
-        }
-      });
-    }
-
-    startconn();
-    node.closing = false;
-  }
-}
-*/
