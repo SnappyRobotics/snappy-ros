@@ -45,11 +45,10 @@ module.exports = function(RED) {
       node.ros_node.nh.unsubscribe(config.topicname)
     })
 
-    var sub_callback = function(msg2) {
-      var msg = {
-        payload: msg2.data
-      }
-      node.send(msg);
+    var sub_callback = function(msg) {
+      node.send({
+        payload: msg.data
+      });
     }
 
     /*

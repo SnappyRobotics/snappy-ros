@@ -1,6 +1,6 @@
 <script type="text/javascript">
 	RED.nodes.registerType('ros-subscriber', {
-		category: 'input',
+		category: 'ROS',
 		color: '#fef5ff',
 		defaults: {
 			node: {
@@ -17,12 +17,12 @@
 		},
 		inputs: 0,
 		outputs: 1,
-		paletteLabel: 'ros sub',
-		icon: "icon.png",
+		paletteLabel: 'subscriber',
+		icon: "ros_logo.png",
 		label: function() {
-			return this.topicname || "ros subscriber";
+			return this.topicname || "ros subscriber"
 		}
-	});
+	})
 </script>
 
 <script type="text/x-red" data-template-name="ros-subscriber">
@@ -44,4 +44,6 @@
 
 <script type="text/x-red" data-help-name="ros-subscriber">
 	<p>A node that subscribe to a ROS topic</p>
+</script>
+e that subscribe to a ROS topic</p>
 </script>
