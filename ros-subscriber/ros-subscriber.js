@@ -4,73 +4,68 @@ const rosnodejs = require('rosnodejs')
 const debug = require('debug')('snappy:ros:subscriber')
 
 module.exports = function(RED) {
-  function ros_subscriber(config) {
-    RED.nodes.createNode(this, config)
-    var node = this
+	function ros_subscriber(config) {
+		RED.nodes.createNode(this, config)
+		var node = this
 
-    node.ros_node = RED.nodes.getNode(config.node)
+		node.ros_node = RED.nodes.getNode(config.node)
 
-    if (!node.ros_node) {
-      return
-    }
+		if (!node.ros_node) {
+			return
+		}
 
-    node.ros_node.on('connnecting to ros', () => {
-      node.status({
-        fill: 'yellow',
-        shape: 'ring',
-        text: 'connecting to ros master..'
-      })
-    })
+		node.ros_node.on('connnecting to ros', () => {
+			node.status({
+				fill: 'yellow',
+				shape: 'ring',
+				text: 'connecting to ros master..'
+			})
+		})
 
-    node.ros_node.on('connnected to ros', () => {
-      node.status({
-        fill: 'green',
-        shape: 'dot',
-        text: 'connected to ros'
-      })
+		node.ros_node.on('connnected to ros', () => {
+			node.status({
+				fill: 'green',
+				shape: 'dot',
+				text: 'connected to ros'
+			})
 
-      node.sub = node.ros_node.nh.subscribe(config.topicname, config.topictype, sub_callback)
+			node.sub = node.ros_node.nh.subscribe(config.topicname, config.typepackage + '/' + config.typename, sub_callback)
 
-      node.sub.on('registered', () => {
-        node.status({
-          fill: 'green',
-          shape: 'dot',
-          text: 'subscribed'
-        })
-      })
-    })
+			node.sub.on('registered', () => {
+				node.status({
+					fill: 'green',
+					shape: 'dot',
+					text: 'subscribed'
+				})
+			})
+		})
 
-    node.on('close', function() {
-      debug('Unsubscribing node while closing subscriber on topic :', config.topicname)
-      node.ros_node.nh.unsubscribe(config.topicname)
-    })
+		node.on('close', function() {
+			debug('Unsubscribing node while closing subscriber on topic :', config.topicname)
+			node.ros_node.nh.unsubscribe(config.topicname)
+		})
 
-    var sub_callback = function(msg) {
-      node.send({
-        payload: msg.data
-      })
-    }
+		var sub_callback = function(msg) {
+			node.send({
+				payload: msg.data
+			})
+		}
 
-    //routes
-    RED.httpAdmin.get("/rosMessagePackages", function(req, res) {
-      res.json(rosnodejs.getAvailableMessagePackages())
-    })
+		//routes
+		RED.httpAdmin.get("/rosMessagePackages", function(req, res) {
+			res.json(rosnodejs.getAvailableMessagePackages())
+		})
 
-    /*
-    node.server.on('ros error', () => {
-      node.status({
-        fill: "red",
-        shape: "dot",
-        text: "error"
-      });
-    });
-
-    node.on("close", function() {
-      if (!node.server.closing) {
-        node.topic.unsubscribe();
-      }
-    });
-		*/
-  }
-  RED.nodes.registerType("ros-subscriber", ros_subscriber);
+		RED.httpAdmin.get("/rosMessagePackages/:package", function(req, res) {
+			var x = rosnodejs.require(req.params.package).msg
+			var o = []
+			for (var key in x) {
+				if (x.hasOwnProperty(key)) {
+					o.push(key)
+				}
+			}
+			res.json(o)
+		})
+	}
+	RED.nodes.registerType("ros-subscriber", ros_subscriber);
 }
