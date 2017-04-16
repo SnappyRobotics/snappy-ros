@@ -20,27 +20,26 @@ module.exports = function(RED) {
       }
     })
 
-
     function startNode() {
       debug('starting ROS node')
       node.emit('connnecting to ros')
-      node.log('connnecting to ros')
 
-      /*
-      rosNode._masterApi.getXmlrpcClient().once('ECONNREFUSED', (err) => {
 
-      })
-      */
       rosnodejs.initNode(config.name)
         .then((nodeHandle) => {
           debug('ROS node started')
           node.nh = nodeHandle
+          node.emit('connnected to ros')
+        })
+        .catch(function(e) {
+          debug(e)
         })
     }
 
     setTimeout(function() {
       startNode()
-    }, 10);
+    }, 10)
+
     node.closing = false;
   }
   RED.nodes.registerType('ros-node-config', ros_node_config);

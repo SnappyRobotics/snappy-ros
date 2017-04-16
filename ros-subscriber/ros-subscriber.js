@@ -15,13 +15,21 @@ module.exports = function(RED) {
     }
 
     node.ros_node.on('connnecting to ros', () => {
-      debug('connecting')
       node.status({
         fill: 'yellow',
         shape: 'ring',
         text: 'connecting to ros master..'
       })
     })
+
+    node.ros_node.on('connnected to ros', () => {
+      node.status({
+        fill: 'green',
+        shape: 'dot',
+        text: 'connected'
+      })
+    })
+
     /*
     // if topic has not been advertised yet, keep trying again
     function topicQuery(topic) {
