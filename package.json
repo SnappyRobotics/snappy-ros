@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Node-red ROS connector based on rosnodejs lib",
   "scripts": {
+    "red": "DEBUG=snappy:* node-red",
     "test": "grunt test"
   },
   "repository": {
@@ -30,6 +31,7 @@
   },
   "homepage": "https://github.com/SnappyRobotics/snappy-ros#readme",
   "dependencies": {
+    "debug": "^2.6.3",
     "rosnodejs": "^2.0.1"
   },
   "devDependencies": {

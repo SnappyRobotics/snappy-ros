@@ -1,5 +1,37 @@
 "use strict";
 
+const rosnodejs = require('rosnodejs');
+const debug = require('debug')("snappy:ros:server");
+
+module.exports = function(RED) {
+  return function(config) {
+    RED.nodes.createNode(this, config);
+    var node = this;
+
+    node.closing = false;
+    node.on("close", function() {
+      debug("On close")
+      node.closing = true;
+      if (node.tout) {
+        clearTimeout(node.tout);
+      }
+      if (node.ros) {
+        node.ros.close();
+      }
+    })
+
+    function startNode() {
+      debug('starting Node')
+      rosnodejs.initNode('snappy_core')
+        .then((nodeHandle) => {
+          node.nh = nodeHandle
+        })
+    }
+
+    startNode()
+    node.closing = false;
+  }
+}
 /*
 module.exports = function(RED) {
   return function(config) {
