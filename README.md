@@ -13,12 +13,27 @@ Node-red ROS connector based on rosnodejs lib
 [![license](https://img.shields.io/github/license/SnappyRobotics/snappy-ros.svg)]()
 [![npm](https://img.shields.io/npm/v/npm.svg)]()
 
+## Install
+### prerequisites
+- Node-red
+- ROS(Kinetic)
+### How to install
+- go to your node-red folder (usually ~/.node-red)
+- run this command in terminal
+
+```bash
+npm install snappy-ros
+```
+
 ### This is in beta:
 Parts tested are :
-Subsciber and publisher (with string and Twist data type)
+Subscriber and publisher (with string and Twist data type)
 
 TODO:
+- Proper Documentation
+- UI/Dashboard nodes
 - Write Unit Tests
 - Add service client and server nodes
 - Param nodes(setter and getter)
-- UI/Dashboard nodes
+
+and many more comming in next couple of days.
