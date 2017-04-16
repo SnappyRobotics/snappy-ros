@@ -41,7 +41,7 @@ module.exports = function(RED) {
 		var a = []
 		for (var key in x) {
 			if (x.hasOwnProperty(key)) {
-				a.push(key)
+				a.push(key.trim())
 			}
 		}
 		a = a.sort()
@@ -51,7 +51,7 @@ module.exports = function(RED) {
 			var ar = []
 			for (var k in xy) {
 				if (xy.hasOwnProperty(k)) {
-					ar.push(k)
+					ar.push(k.trim())
 				}
 			}
 			ar = ar.sort()
