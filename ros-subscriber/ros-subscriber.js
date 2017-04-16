@@ -19,8 +19,13 @@ module.exports = function(RED) {
 		})
 
 		var sub_callback = function(msg) {
+			var o = JSON.parse(JSON.stringify(msg))
+			if (o.data) {
+				o = o.data
+			}
+
 			node.send({
-				payload: msg
+				payload: o
 			})
 		}
 
