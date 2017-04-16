@@ -10,10 +10,6 @@ module.exports = function(RED) {
 
 		node.ros_node = RED.nodes.getNode(config.node)
 
-		if (!node.ros_node) {
-			return
-		}
-
 		node.ros_node.on('connnecting to ros', () => {
 			node.status({
 				fill: 'yellow',
@@ -51,21 +47,11 @@ module.exports = function(RED) {
 			})
 		}
 
-		//routes
-		RED.httpAdmin.get("/rosMessagePackages", function(req, res) {
-			res.json(rosnodejs.getAvailableMessagePackages())
-		})
 
-		RED.httpAdmin.get("/rosMessagePackages/:package", function(req, res) {
-			var x = rosnodejs.require(req.params.package).msg
-			var o = []
-			for (var key in x) {
-				if (x.hasOwnProperty(key)) {
-					o.push(key)
-				}
-			}
-			res.json(o)
-		})
+		// if (!node.ros_node) {
+		// 	return
+		// }
 	}
+
 	RED.nodes.registerType("ros-subscriber", ros_subscriber);
 }
