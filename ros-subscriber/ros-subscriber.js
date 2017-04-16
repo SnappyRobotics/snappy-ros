@@ -4,7 +4,7 @@ const rosnodejs = require('rosnodejs')
 const debug = require('debug')('snappy:ros:subscriber')
 
 module.exports = function(RED) {
-	function ros_subscriber(config) {
+	var ros_subscriber = function(config) {
 		RED.nodes.createNode(this, config)
 		var node = this
 
