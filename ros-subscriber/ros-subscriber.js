@@ -1,7 +1,7 @@
 'use strict';
 
-const rosnodejs = require('rosnodejs');
-const debug = require('debug')('snappy:ros:subscriber');
+const rosnodejs = require('rosnodejs')
+const debug = require('debug')('snappy:ros:subscriber')
 
 module.exports = function(RED) {
   function ros_subscriber(config) {
@@ -26,43 +26,32 @@ module.exports = function(RED) {
       node.status({
         fill: 'green',
         shape: 'dot',
-        text: 'connected'
+        text: 'connected to ros'
+      })
+
+      node.sub = node.ros_node.nh.subscribe(config.topicname, config.topictype, sub_callback)
+
+      node.sub.on('registered', () => {
+        node.status({
+          fill: 'green',
+          shape: 'dot',
+          text: 'subscribed'
+        })
       })
     })
 
-    /*
-    // if topic has not been advertised yet, keep trying again
-    function topicQuery(topic) {
-      node.server.ros.getTopicType(topic.name, (type) => {
-        if (!type) {
-          setTimeout(() => {
-            topicQuery(topic)
-          }, 1000);
-        } else {
-          topic.subscribe(function(data) {
-            node.send({
-              payload: data
-            });
-            node.log('got data: ' + data);
-          });
-        }
-      })
+    node.on('close', function() {
+      debug('Unsubscribing node while closing subscriber on topic :', config.topicname)
+      node.ros_node.nh.unsubscribe(config.topicname)
+    })
+
+    var sub_callback = function(msg2) {
+      var msg = {
+        payload: msg2.data
+      }
+      node.send(msg);
     }
 
-    node.server.on('ros connected', () => {
-      node.topic = new ROSLIB.Topic({
-        ros: node.server.ros,
-        name: config.topicname
-      });
-
-      topicQuery(node.topic);
-      node.status({
-        fill: "green",
-        shape: "dot",
-        text: "connected"
-      });
-    });
-		*/
     /*
     node.server.on('ros error', () => {
       node.status({

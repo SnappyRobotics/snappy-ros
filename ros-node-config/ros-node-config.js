@@ -1,29 +1,21 @@
 'use strict';
 
-const rosnodejs = require('rosnodejs');
-const debug = require('debug')('snappy:ros:config');
+const rosnodejs = require('rosnodejs')
+const debug = require('debug')('snappy:ros:config')
 
 module.exports = function(RED) {
   function ros_node_config(config) {
     RED.nodes.createNode(this, config);
     var node = this;
+    node.name = config.name
 
-    node.closing = false;
     node.on('close', function() {
       debug('On close')
-      node.closing = true;
-      if (node.tout) {
-        clearTimeout(node.tout);
-      }
-      if (node.ros) {
-        node.ros.close();
-      }
     })
 
     function startNode() {
       debug('starting ROS node')
       node.emit('connnecting to ros')
-
 
       rosnodejs.initNode(config.name)
         .then((nodeHandle) => {
@@ -39,9 +31,8 @@ module.exports = function(RED) {
     setTimeout(function() {
       startNode()
     }, 10)
-
-    node.closing = false;
   }
+
   RED.nodes.registerType('ros-node-config', ros_node_config);
 }
 /*
