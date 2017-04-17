@@ -44,16 +44,19 @@ If you want to try the latest version from github, you can install it by
 
 [![Subscriber how to](https://raw.githubusercontent.com/SnappyRobotics/snappy-ros/master/images/subscriber.gif)]()
 
+### Publisher
+
+[![Publisher how to](https://raw.githubusercontent.com/SnappyRobotics/snappy-ros/master/images/publisher.gif)]()
 
 ### This is in beta:
 Parts tested are :
 Subscriber and publisher (with string and Twist data type)
 
 ### TODO:
-- Proper Documentation
-- UI/Dashboard nodes
-- Write Unit Tests
-- Add service client and server nodes
-- Param nodes(setter and getter)
+[x] Proper Documentation
+[ ] Add service client and server nodes
+[ ] Param nodes(setter and getter)
+[ ] Write Unit Tests
+[ ] UI/Dashboard nodes
 
 and many more comming in next couple of days.
