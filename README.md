@@ -20,27 +20,29 @@ A collection of Node-red nodes for connecting with ROS (Robot Operating System)
 
 [![NPM](https://nodei.co/npm/snappy-ros.png?downloads=true&stars=true)](https://nodei.co/npm/snappy-ros/)
 
-## Install
-### Prerequisites
+
+## Prerequisites
 - Node-red
 - ROS(Kinetic)
 - should atleast know ROS Topics ([ROS Tutorials: till 6th Tut.](http://wiki.ros.org/ROS/Tutorials))
 
 
-### How to install
-- go to your node-red folder (usually ~/.node-red)
-- run this command in terminal
+### Install
+To install the stable version run the following command in your Node-RED user directory (typically `~/.node-red`):
 
+    npm i node-red-dashboard
 
-```bash
-npm install snappy-ros
-```
+Open your Node-RED instance and you should have ROS nodes available in the palette.
 
+If you want to try the latest version from github, you can install it by
 
-## Subscriber
+    npm i SnappyRobotics/snappy-ros
+
+## Nodes :
+
+### Subscriber
 
 [![Subscriber how to](https://raw.githubusercontent.com/SnappyRobotics/snappy-ros/master/images/subscriber.gif)]()
-
 
 
 ### This is in beta:
