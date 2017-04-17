@@ -53,10 +53,10 @@ Parts tested are :
 Subscriber and publisher (with string and Twist data type)
 
 ### TODO:
-[x] Proper Documentation
-[ ] Add service client and server nodes
-[ ] Param nodes(setter and getter)
-[ ] Write Unit Tests
-[ ] UI/Dashboard nodes
+- [x] Proper Documentation
+- [ ] Add service client and server nodes
+- [ ] Param nodes(setter and getter)
+- [ ] Write Unit Tests
+- [ ] UI/Dashboard nodes
 
 and many more comming in next couple of days.
