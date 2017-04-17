@@ -47,8 +47,8 @@ module.exports = function(RED) {
 			})
 		})
 
-		node.on('close', function() {
-			debug('Unsubscribing node while closing subscriber on topic :', config.topicname)
+		node.on('close', function(done) {
+			debug('Unsubscribing node on topic :', config.topicname)
 			node.ros_node.nh.unsubscribe(config.topicname)
 		})
 
