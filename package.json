@@ -1,6 +1,6 @@
 {
   "name": "snappy-ros",
-  "version": "0.1.64-1",
+  "version": "0.1.64-2",
   "description": "Node-red ROS connector based on rosnodejs lib",
   "scripts": {
     "red": "DEBUG=snappy:* node-red",
