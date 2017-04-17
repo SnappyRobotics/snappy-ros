@@ -48,9 +48,16 @@ If you want to try the latest version from github, you can install it by
 
 [![Publisher how to](https://raw.githubusercontent.com/SnappyRobotics/snappy-ros/master/images/publisher.gif)]()
 
-### This is in beta:
+## This is in beta:
 Parts tested are :
 Subscriber and publisher (with string and Twist data type)
+
+### Limitations in beta:
+**Only one config is supported at the moment**
+*Dont create more than one config for now*
+
+also :
+*Do not rename config once deployed else node-red needs to be restarted*
 
 ### TODO:
 - [x] Proper Documentation
