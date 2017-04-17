@@ -29,7 +29,7 @@ A collection of Node-red nodes for connecting with ROS (Robot Operating System)
 ### Install
 To install the stable version run the following command in your Node-RED user directory (typically `~/.node-red`):
 
-    npm i node-red-dashboard
+    npm i snappy-ros
 
 Open your Node-RED instance and you should have ROS nodes available in the palette.
 
