@@ -1,5 +1,5 @@
 # snappy-ros
-A collection of Node-red nodes for connecting with ROS (Robot Operating System)
+A collection of Node-RED nodes for connecting with ROS (Robot Operating System)
 
 
 ## Badges
@@ -21,7 +21,7 @@ A collection of Node-red nodes for connecting with ROS (Robot Operating System)
 
 
 ## Prerequisites
-- Node-red
+- Node-RED
 - ROS(Kinetic)
 - should atleast know ROS Topics ([ROS Tutorials: till 6th Tut.](http://wiki.ros.org/ROS/Tutorials))
 
@@ -56,7 +56,7 @@ Subscriber and publisher (with string and Twist data type)
 *Dont create more than one config for now*
 
 also :
-*Do not rename config once deployed else node-red needs to be restarted*
+*Do not rename config once deployed else Node-RED needs to be restarted*
 
 ### TODO:
 - [x] Proper Documentation

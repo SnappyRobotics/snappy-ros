@@ -94,10 +94,7 @@
 			window.oldPackage = package
 			$.getJSON('ROSInfo/' + package, function(data) {
 				var v = syntaxHighlight(data)
-				console.log(v)
-				// $("#msg_format").html(v + "")
 				document.getElementById('msg_format').innerHTML = v;
-				console.log($("#msg_format").html())
 			})
 		}
 	}
@@ -151,11 +148,13 @@
 	</style>
 
 	<div class="form-row">
-		<label for="node-input-node"><i class="fa fa-user"></i> ROS Node</label>
+		<label for="node-input-node">
+			<i class="fa fa-user"></i> ROS Node</label>
 		<input type="text" id="node-input-node">
 	</div>
 	<div class="form-row">
-		<label for="node-input-topicname"><i class="icon-tag"></i> Topic</label>
+		<label for="node-input-topicname">
+			<i class="icon-tag"></i> Topic</label>
 		<input type="text" id="node-input-topicname" placeholder="/mytopic">
 	</div>
 
@@ -180,8 +179,8 @@
 	<h3>Output</h3>
 	<dl class="message-properties">
 		<dt>
-				payload
-	    </dt>
+			payload
+		</dt>
 		<dd> the payload of the message subscribed</dd>
 	</dl>
 </script>
