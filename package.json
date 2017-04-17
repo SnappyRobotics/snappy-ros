@@ -1,50 +1,51 @@
 {
-	"name": "snappy-ros",
-	"version": "0.1.71",
-	"description": "A collection of Node-red nodes for connecting with ROS (Robot Operating System)",
-	"scripts": {
-		"red": "DEBUG=snappy:* node-red",
-		"test": "grunt test",
-		"snyk-protect": "snyk protect",
-		"prepublish": "npm run snyk-protect"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/SnappyRobotics/snappy-ros.git"
-	},
-	"node-red": {
-		"nodes": {
-			"ros-node-config": "ros-node-config/ros-node-config.js",
-			"ros-subscriber": "ros-subscriber/ros-subscriber.js",
-			"ros-publisher": "ros-publisher/ros-publisher.js"
-		}
-	},
-	"author": {
-		"name": "Prajankya Sonar",
-		"email": "contact@prajankya.me",
-		"url": "https://prajankya.me/"
-	},
-	"keywords": [
+  "name": "snappy-ros",
+  "version": "0.1.71",
+  "description": "A collection of Node-red nodes for connecting with ROS (Robot Operating System)",
+  "scripts": {
+    "red": "DEBUG=snappy:* node-red",
+    "test": "grunt test",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SnappyRobotics/snappy-ros.git"
+  },
+  "node-red": {
+    "nodes": {
+      "ros-node-config": "ros-node-config/ros-node-config.js",
+      "ros-subscriber": "ros-subscriber/ros-subscriber.js",
+      "ros-publisher": "ros-publisher/ros-publisher.js"
+    }
+  },
+  "author": {
+    "name": "Prajankya Sonar",
+    "email": "contact@prajankya.me",
+    "url": "https://prajankya.me/"
+  },
+  "keywords": [
     "node-red",
     "ros",
     "rosnodejs",
     "snappy"
   ],
-	"license": "GPL-3.0",
-	"bugs": {
-		"url": "https://github.com/SnappyRobotics/snappy-ros/issues"
-	},
-	"homepage": "https://github.com/SnappyRobotics/snappy-ros#readme",
-	"dependencies": {
-		"debug": "^2.6.3",
-		"rosnodejs": "^2.0.1"
-	},
-	"devDependencies": {
-		"grunt": "^1.0.1",
-		"grunt-bump": "^0.8.0",
-		"grunt-contrib-jshint": "^1.1.0",
-		"istanbul": "^0.4.5",
-		"snyk": "^1.28.1"
-	},
-	"snyk": true
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/SnappyRobotics/snappy-ros/issues"
+  },
+  "homepage": "https://github.com/SnappyRobotics/snappy-ros#readme",
+  "dependencies": {
+    "debug": "^2.6.3",
+    "promiscuous": "^0.7.0",
+    "rosnodejs": "^2.0.1"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-bump": "^0.8.0",
+    "grunt-contrib-jshint": "^1.1.0",
+    "istanbul": "^0.4.5",
+    "snyk": "^1.28.1"
+  },
+  "snyk": true
 }

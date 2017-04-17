@@ -1,61 +1,65 @@
 'use strict';
 
-const rosnodejs = require('rosnodejs')
+const path = require('path')
 const debug = require('debug')('snappy:ros:subscriber')
 
 module.exports = function(RED) {
-	var ros_subscriber = function(config) {
-		RED.nodes.createNode(this, config)
-		var node = this
+  var ros_subscriber = function(config) {
+    RED.nodes.createNode(this, config)
+    var node = this
 
-		node.ros_node = RED.nodes.getNode(config.node)
+    if (!node.ros_node) {
+      node.ros_node = require(
+        path.join(__dirname, '..', 'server.js'))(node.context().global)
+    }
+    /*
+    node.ros_node.on('connnecting to ros', () => {
+      node.status({
+        fill: 'yellow',
+        shape: 'ring',
+        text: 'connecting to ros master..'
+      })
+    })
 
-		node.ros_node.on('connnecting to ros', () => {
-			node.status({
-				fill: 'yellow',
-				shape: 'ring',
-				text: 'connecting to ros master..'
-			})
-		})
+    var sub_callback = function(msg) {
+      var o = JSON.parse(JSON.stringify(msg))
+      if (o.data) {
+        o = o.data
+      }
 
-		var sub_callback = function(msg) {
-			var o = JSON.parse(JSON.stringify(msg))
-			if (o.data) {
-				o = o.data
-			}
+      node.send({
+        payload: o
+      })
+    }
 
-			node.send({
-				payload: o
-			})
-		}
+    node.ros_node.on('connnected to ros', () => {
+      node.status({
+        fill: 'green',
+        shape: 'dot',
+        text: 'connected to ros'
+      })
 
-		node.ros_node.on('connnected to ros', () => {
-			node.status({
-				fill: 'green',
-				shape: 'dot',
-				text: 'connected to ros'
-			})
+      node.sub = node.ros_node.nh.subscribe(config.topicname, config.typepackage + '/' + config.typename, sub_callback)
 
-			node.sub = node.ros_node.nh.subscribe(config.topicname, config.typepackage + '/' + config.typename, sub_callback)
+      node.sub.on('registered', () => {
+        node.status({
+          fill: 'green',
+          shape: 'dot',
+          text: 'subscribed'
+        })
+      })
+    })
 
-			node.sub.on('registered', () => {
-				node.status({
-					fill: 'green',
-					shape: 'dot',
-					text: 'subscribed'
-				})
-			})
-		})
+    node.on('close', function(done) {
+      debug('Unsubscribing node on topic :', config.topicname)
+      node.ros_node.nh.unsubscribe(config.topicname)
+        .then(function() {
+          debug('unsubscribed')
+          done()
+        })
+    })
+		*/
+  }
 
-		node.on('close', function(done) {
-			debug('Unsubscribing node on topic :', config.topicname)
-			node.ros_node.nh.unsubscribe(config.topicname)
-				.then(function() {
-					debug('unsubscribed')
-					done()
-				})
-		})
-	}
-
-	RED.nodes.registerType("ros-subscriber", ros_subscriber);
+  RED.nodes.registerType("ros-subscriber", ros_subscriber)
 }
