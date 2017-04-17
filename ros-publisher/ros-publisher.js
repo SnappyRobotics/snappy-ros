@@ -46,9 +46,14 @@ module.exports = function(RED) {
 			})
 		})
 
-		node.on('close', function() {
-			debug('Unpublishing node while closing publisher on topic :', config.topicname)
+		node.on('close', function(done) {
+			debug('Unpublishing node on topic :', config.topicname)
+
 			node.ros_node.nh.unadvertise(config.topicname)
+				.then(function() {
+					debug('unpublished')
+					done()
+				})
 		})
 	}
 

@@ -50,8 +50,11 @@ module.exports = function(RED) {
 		node.on('close', function(done) {
 			debug('Unsubscribing node on topic :', config.topicname)
 			node.ros_node.nh.unsubscribe(config.topicname)
+				.then(function() {
+					debug('unsubscribed')
+					done()
+				})
 		})
-
 	}
 
 	RED.nodes.registerType("ros-subscriber", ros_subscriber);

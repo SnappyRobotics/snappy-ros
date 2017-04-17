@@ -1,5 +1,7 @@
 # snappy-ros
-Node-red ROS connector based on rosnodejs lib
+A collection of Node-red nodes for connecting with ROS (Robot Operating System)
+
+
 
 [![Build Status](https://travis-ci.org/SnappyRobotics/snappy-ros.svg?branch=master)](https://travis-ci.org/SnappyRobotics/snappy-ros)
 [![Coverage Status](https://coveralls.io/repos/github/SnappyRobotics/snappy-ros/badge.svg?branch=master)](https://coveralls.io/github/SnappyRobotics/snappy-ros?branch=master)

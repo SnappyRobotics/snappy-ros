@@ -1,0 +1,8 @@
+Gruntfile.js
+.snyk
+run-coverage
+.travis.yml
+coverage
+coverage/*
+images
+images/*
