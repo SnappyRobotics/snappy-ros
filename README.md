@@ -13,14 +13,21 @@ Node-red ROS connector based on rosnodejs lib
 [![license](https://img.shields.io/github/license/SnappyRobotics/snappy-ros.svg)]()
 [![npm](https://img.shields.io/npm/v/npm.svg)]()
 
+
+
+[![NPM](https://nodei.co/npm/snappy-ros.png?downloads=true&stars=true)](https://nodei.co/npm/snappy-ros/)
+
 ## Install
 ### Prerequisites
 - Node-red
 - ROS(Kinetic)
+- should atleast know ROS Topics ([ROS Tutorials: till 6th Tut.](http://wiki.ros.org/ROS/Tutorials))
+
 
 ### How to install
 - go to your node-red folder (usually ~/.node-red)
 - run this command in terminal
+
 
 ```bash
 npm install snappy-ros

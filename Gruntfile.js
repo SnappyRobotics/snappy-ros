@@ -5,6 +5,17 @@ var path = require('path')
 module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
+		bump: {
+			options: {
+				push: false,
+				commit: false,
+				files: ['package.json'],
+				updateConfigs: ['pkg'],
+				createTag: true,
+				tagName: '%VERSION%',
+				tagMessage: 'Version %VERSION%'
+			}
+		},
 		jshint: {
 			options: {
 				// http://www.jshint.com/docs/options/
@@ -38,6 +49,7 @@ module.exports = function(grunt) {
 	})
 
 	grunt.loadNpmTasks('grunt-contrib-jshint')
+	grunt.loadNpmTasks('grunt-bump')
 
 	grunt.registerTask('default', ['test'])
 	grunt.registerTask('test', ['jshint'])
