@@ -2,6 +2,7 @@
 A collection of Node-red nodes for connecting with ROS (Robot Operating System)
 
 
+## Badges
 
 [![Build Status](https://travis-ci.org/SnappyRobotics/snappy-ros.svg?branch=master)](https://travis-ci.org/SnappyRobotics/snappy-ros)
 [![Coverage Status](https://coveralls.io/repos/github/SnappyRobotics/snappy-ros/badge.svg?branch=master)](https://coveralls.io/github/SnappyRobotics/snappy-ros?branch=master)
@@ -34,6 +35,13 @@ A collection of Node-red nodes for connecting with ROS (Robot Operating System)
 ```bash
 npm install snappy-ros
 ```
+
+
+## Subscriber
+
+[![Subscriber how to](https://raw.githubusercontent.com/SnappyRobotics/snappy-ros/master/images/subscriber.gif)]()
+
+
 
 ### This is in beta:
 Parts tested are :
