@@ -14,7 +14,7 @@
   },
   "node-red": {
     "nodes": {
-      "ros-node-config": "ros-node-config/ros-node-config.js",
+      "ros_setup": "ros_setup.js",
       "ros-subscriber": "ros-subscriber/ros-subscriber.js",
       "ros-publisher": "ros-publisher/ros-publisher.js"
     }

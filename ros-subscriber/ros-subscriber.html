@@ -64,9 +64,11 @@
 			$('#node-input-typename').change(function() {
 				node.typename = this.value
 				setFormatText(node.typepackage + "/" + node.typename)
+				console.log('set formmat');
 			})
 
 			loadPackage()
+			console.log("set format");
 			setFormatText(node.typepackage + "/" + node.typename)
 		}
 	})
