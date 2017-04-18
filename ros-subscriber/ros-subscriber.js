@@ -1,61 +1,62 @@
 'use strict';
 
-const rosnodejs = require('rosnodejs')
+const path = require('path')
 const debug = require('debug')('snappy:ros:subscriber')
 
+const ros_server = require(path.join(__dirname, '..', 'ros_server.js'))
+
 module.exports = function(RED) {
-	var ros_subscriber = function(config) {
-		RED.nodes.createNode(this, config)
-		var node = this
+  var ros_subscriber = function(config) {
+    RED.nodes.createNode(this, config)
+    var node = this
 
-		node.ros_node = RED.nodes.getNode(config.node)
+    node.status({
+      fill: 'yellow',
+      shape: 'ring',
+      text: 'connecting to ros master..'
+    })
 
-		node.ros_node.on('connnecting to ros', () => {
-			node.status({
-				fill: 'yellow',
-				shape: 'ring',
-				text: 'connecting to ros master..'
-			})
-		})
+    node.on('connected to ros', function() {
+      node.status({
+        fill: 'green',
+        shape: 'dot',
+        text: 'subscribed'
+      })
+    })
 
-		var sub_callback = function(msg) {
-			var o = JSON.parse(JSON.stringify(msg))
-			if (o.data) {
-				o = o.data
-			}
+    var sub_callback = function(msg) {
+      var o = JSON.parse(JSON.stringify(msg))
+      if (o.data) {
+        o = o.data
+      }
 
-			node.send({
-				payload: o
-			})
-		}
+      node.send({
+        payload: o
+      })
+    }
 
-		node.ros_node.on('connnected to ros', () => {
-			node.status({
-				fill: 'green',
-				shape: 'dot',
-				text: 'connected to ros'
-			})
+    node.on('close', function(done) {
+      debug('Unsubscribing node on topic :', config.topicname)
 
-			node.sub = node.ros_node.nh.subscribe(config.topicname, config.typepackage + '/' + config.typename, sub_callback)
+      if (node.ros) {
+        node.ros.unsubscribe(config.topicname)
+          .then(function() {
+            debug('unsubscribed')
+            done()
+          })
+      } else {
+        done()
+      }
+    })
 
-			node.sub.on('registered', () => {
-				node.status({
-					fill: 'green',
-					shape: 'dot',
-					text: 'subscribed'
-				})
-			})
-		})
-
-		node.on('close', function(done) {
-			debug('Unsubscribing node on topic :', config.topicname)
-			node.ros_node.nh.unsubscribe(config.topicname)
-				.then(function() {
-					debug('unsubscribed')
-					done()
-				})
-		})
-	}
-
-	RED.nodes.registerType("ros-subscriber", ros_subscriber);
+    ros_server(RED, node)
+      .then(function(nodeHandle) {
+        node.ros = nodeHandle
+        node.sub = node.ros.subscribe(config.topicname, config.typepackage + '/' + config.typename, sub_callback)
+      })
+      .catch(function(e) {
+        debug('Er', e)
+      })
+  }
+  RED.nodes.registerType("ros-subscriber", ros_subscriber)
 }

@@ -37,6 +37,13 @@ If you want to try the latest version from github, you can install it by
 
     npm i SnappyRobotics/snappy-ros
 
+## Configuration
+To change the ROS node name (as to be seen in rqt_graph) add this line in the json settings file (typically `~/.node-red/settings.json`):
+
+    rosNodeName: 'Node-RED',
+
+and replace the above `Node-RED` with your required name.
+
 ## Nodes :
 
 ### Subscriber

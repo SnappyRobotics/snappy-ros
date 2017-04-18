@@ -3,9 +3,6 @@
 		category: 'ROS',
 		color: '#fef5ff',
 		defaults: {
-			node: {
-				type: "ros-node-config"
-			},
 			topicname: {
 				value: "",
 				required: true
@@ -45,23 +42,9 @@
 				.html(window.list_package_html)
 				.val(node.typepackage)
 
-			var loadPackage = function() {
-				var ar2 = window.list[node.typepackage]
-
-				var o = ""
-				for (var i = 0; i < ar2.length; i++) {
-					o += '<option value="' + ar2[i] + '">' + ar2[i] + '</option>'
-				}
-
-				$('#node-input-typename').html(o)
-				$("#node-input-typename")
-					.val(node.typename)
-			}
-
-
 			$('#node-input-typepackage').change(function() {
 				node.typepackage = this.value
-				loadPackage()
+				loadPackage(node.typepackage, node.typename)
 			})
 
 			$('#node-input-typename').change(function() {
@@ -69,10 +52,24 @@
 				setFormatText(node.typepackage + "/" + node.typename)
 			})
 
-			loadPackage()
-			setFormatText(node.typepackage + "/" + node.typename)
+			loadPackage(node.typepackage, node.typename)
 		}
 	})
+
+	var loadPackage = function(typepackage, typename) {
+		var ar2 = window.list[typepackage]
+
+		var o = ""
+		for (var i = 0; i < ar2.length; i++) {
+			o += '<option value="' + ar2[i] + '">' + ar2[i] + '</option>'
+		}
+
+		$('#node-input-typename').html(o)
+		$("#node-input-typename")
+			.val(typename)
+
+		setFormatText(typepackage + "/" + typename)
+	}
 
 	$.getJSON('packages', function(list) {
 		window.list = list
@@ -90,15 +87,11 @@
 	})
 
 	function setFormatText(package) {
-		if (window.oldPackage != package) {
-			window.oldPackage = package
-			$.getJSON('ROSInfo/' + package, function(data) {
-				var v = syntaxHighlight(data)
-				document.getElementById('msg_format').innerHTML = v;
-			})
-		}
+		$.getJSON('ROSInfo/' + package, function(data) {
+			var v = syntaxHighlight(data)
+			$('#msg_format').html(v)
+		})
 	}
-
 
 	function syntaxHighlight(json) {
 		if (typeof json != 'string') {
@@ -146,15 +139,9 @@
 			font-weight: bold;
 		}
 	</style>
-
-	<div class="form-row">
-		<label for="node-input-node">
-			<i class="fa fa-user"></i> ROS Node</label>
-		<input type="text" id="node-input-node">
-	</div>
 	<div class="form-row">
 		<label for="node-input-topicname">
-			<i class="icon-tag"></i> Topic</label>
+			<i class="icon-tag"></i> ROS Topic</label>
 		<input type="text" id="node-input-topicname" placeholder="/mytopic">
 	</div>
 
