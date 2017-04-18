@@ -54,22 +54,9 @@ and replace the above `Node-RED` with your required name.
 
 [![Publisher how to](https://raw.githubusercontent.com/SnappyRobotics/snappy-ros/master/images/publisher.gif)]()
 
-## This is in beta:
-Parts tested are :
-Subscriber and publisher (with string and Twist data type)
-
-### Limitations in beta:
-**Only one config is supported at the moment**
-*Dont create more than one config for now*
-
-also :
-*Do not rename config once deployed else Node-RED needs to be restarted*
-
 ### TODO:
-- [x] Proper Documentation
 - [ ] Add service client and server nodes
-- [ ] Param nodes(setter and getter)
+- [ ] Parameter nodes(setter and getter)
 - [ ] Write Unit Tests
-- [ ] UI/Dashboard nodes
 
 and many more comming in next couple of days.
