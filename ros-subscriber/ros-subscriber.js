@@ -37,6 +37,7 @@ module.exports = function(RED) {
 
     node.on('close', function(done) {
       debug('Unsubscribing node on topic :', config.topicname)
+
       if (node.ros) {
         node.ros.unsubscribe(config.topicname)
           .then(function() {

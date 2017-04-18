@@ -4,9 +4,6 @@
 		color: '#fef5ff',
 		align: 'right',
 		defaults: {
-			node: {
-				type: "ros-node-config"
-			},
 			topicname: {
 				value: "",
 				required: true
@@ -148,13 +145,8 @@
 		}
 	</style>
 	<div class="form-row">
-		<label for="node-input-node">
-			<i class="fa fa-user"></i> ROS Node</label>
-		<input type="text" id="node-input-node">
-	</div>
-	<div class="form-row">
 		<label for="node-input-topicname">
-			<i class="icon-tag"></i> Topic</label>
+			<i class="icon-tag"></i> ROS Topic</label>
 		<input type="text" id="node-input-topicname" placeholder="/mytopic">
 	</div>
 
