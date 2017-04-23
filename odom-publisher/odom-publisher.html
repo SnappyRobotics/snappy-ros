@@ -1,0 +1,90 @@
+<script type="text/javascript">
+	RED.nodes.registerType('odom-publisher', {
+		category: 'ROS',
+		color: '#fef5ff',
+		align: 'right',
+		defaults: {
+			name: {},
+			isTF: {},
+			isPublish: {},
+			topic: {}
+		},
+		inputs: 1,
+		outputs: 0,
+		paletteLabel: 'odom-publisher',
+		icon: "ros_logo.png",
+		label: function() {
+			return this.topicname || "odometry publisher"
+		}
+	})
+</script>
+
+<script type="text/x-red" data-template-name="odom-publisher">
+	<div class="form-row">
+		<label for="node-input-name">
+			<i class="icon-tag"></i>Name</label>
+		<input type="text" id="node-input-topicname" placeholder="Node label">
+	</div>
+</script>
+
+
+<script type="text/x-red" data-help-name="odom-publisher">
+	<p>A ROS Odometry TF publisher</p>
+	<h3>Inputs</h3>
+	<dl class="message-properties">
+		<dt>
+			payload
+		</dt>
+		<dd> the payload of the message to publish</dd>
+		<pre id="msg_format">{
+  <span class="key">"pose":</span> {
+    <span class="key">"position":</span> {
+      <span class="key">"x":</span> <span class="number">0</span>,
+      <span class="key">"y":</span> <span class="number">0</span>,
+      <span class="key">"z":</span> <span class="number">0</span>
+    },
+    <span class="key">"orientation":</span> {
+      <span class="key">"x":</span> <span class="number">0</span>,
+      <span class="key">"y":</span> <span class="number">0</span>,
+      <span class="key">"z":</span> <span class="number">0</span>,
+      <span class="key">"w":</span> <span class="number">0</span>
+    }
+  },
+  <span class="key">"twist":</span> {
+    <span class="key">"linear":</span> {
+      <span class="key">"x":</span> <span class="number">0</span>,
+      <span class="key">"y":</span> <span class="number">0</span>,
+      <span class="key">"z":</span> <span class="number">0</span>
+    },
+    <span class="key">"angular":</span> {
+      <span class="key">"x":</span> <span class="number">0</span>,
+      <span class="key">"y":</span> <span class="number">0</span>,
+      <span class="key">"z":</span> <span class="number">0</span>
+    }
+  }
+}</pre>
+	</dl>
+
+	<style>
+		.key {
+			// color: #CC0000;
+		}
+
+		.string {
+			color: #007777;
+		}
+
+		.number {
+			color: #AA00AA;
+		}
+
+		.boolean {
+			color: #0000FF;
+		}
+
+		.null {
+			color: #0000FF;
+			font-weight: bold;
+		}
+	</style>
+</script>

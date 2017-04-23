@@ -16,7 +16,8 @@
     "nodes": {
       "ros_setup": "ros_setup.js",
       "ros-subscriber": "ros-subscriber/ros-subscriber.js",
-      "ros-publisher": "ros-publisher/ros-publisher.js"
+      "ros-publisher": "ros-publisher/ros-publisher.js",
+      "odom-publisher": "odom-publisher/odom-publisher.js"
     }
   },
   "author": {
