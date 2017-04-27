@@ -31,7 +31,12 @@ module.exports = function(RED) {
   RED.httpAdmin.get("/ROSInfo/:package/:messageType", function(req, res) {
     var q = rosnodejs.require(req.params.package)
       .msg[req.params.messageType]
-    var x = new q()
-    res.json(JSON.parse(JSON.stringify(x)))
+    if (q) {
+      var x = new q()
+      res.json(JSON.parse(JSON.stringify(x)))
+    } else {
+      console.error('Type not found:' + req.params.package + "/" + req.params.messageType);
+      res.json({})
+    }
   })
 }
