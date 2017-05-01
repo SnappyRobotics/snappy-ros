@@ -15,15 +15,19 @@ module.exports = function(RED) {
     a = a.sort()
     var o = {}
     for (var i = 0; i < a.length; i++) {
-      var xy = rosnodejs.require(a[i]).msg
-      var ar = []
-      for (var k in xy) {
-        if (xy.hasOwnProperty(k)) {
-          ar.push(k.trim())
+      try {
+        var xy = rosnodejs.require(a[i]).msg
+        var ar = []
+        for (var k in xy) {
+          if (xy.hasOwnProperty(k)) {
+            ar.push(k.trim())
+          }
         }
+        ar = ar.sort()
+        o[a[i]] = ar
+      } catch (e) {
+        debug(e)
       }
-      ar = ar.sort()
-      o[a[i]] = ar
     }
     res.json(o)
   })
