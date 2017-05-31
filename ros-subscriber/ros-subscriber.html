@@ -1,7 +1,7 @@
 <script type="text/javascript">
 	RED.nodes.registerType('ros-subscriber', {
 		category: 'ROS',
-		color: '#fef5ff',
+		color: '#c4c9ff',
 		defaults: {
 			topicname: {
 				value: "",
@@ -25,7 +25,7 @@
 		paletteLabel: 'subscriber',
 		icon: "ros_logo.png",
 		label: function() {
-			return this.topicname || "ros subscriber"
+			return this.topicname || "ROS Subscriber"
 		},
 		oneditprepare: function() {
 			var node = this;

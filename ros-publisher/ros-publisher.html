@@ -1,7 +1,7 @@
 <script type="text/javascript">
 	RED.nodes.registerType('ros-publisher', {
 		category: 'ROS',
-		color: '#fef5ff',
+		color: '#c4c9ff',
 		align: 'right',
 		defaults: {
 			topicname: {
@@ -26,7 +26,7 @@
 		paletteLabel: 'publisher',
 		icon: "ros_logo.png",
 		label: function() {
-			return this.topicname || "ros publisher"
+			return this.topicname || "ROS Publisher"
 		},
 		oneditprepare: function() {
 			var node = this;

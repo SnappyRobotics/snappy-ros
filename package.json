@@ -1,6 +1,6 @@
 {
   "name": "snappy-ros",
-  "version": "0.3.246",
+  "version": "0.3.253",
   "description": "A collection of Node-red nodes for connecting with ROS (Robot Operating System)",
   "scripts": {
     "red": "DEBUG=snappy:* node-red",
@@ -16,8 +16,7 @@
     "nodes": {
       "ros_setup": "ros_setup.js",
       "ros-subscriber": "ros-subscriber/ros-subscriber.js",
-      "ros-publisher": "ros-publisher/ros-publisher.js",
-      "odom-publisher": "odom-publisher/odom-publisher.js"
+      "ros-publisher": "ros-publisher/ros-publisher.js"
     }
   },
   "author": {
