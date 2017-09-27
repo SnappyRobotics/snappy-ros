@@ -90,4 +90,20 @@ module.exports = function(RED) {
     }
     res.json(list)
   })
+
+  RED.httpAdmin.get("/ROSServInfo/:package/:serviceType", function(req, res) {
+    try {
+      var srv = rosnodejs.require(req.params.package)
+        .srv[req.params.serviceType]
+      var obj = {}
+      obj.Request = new srv.Request()
+      obj.Response = new srv.Response()
+
+      res.json(JSON.parse(JSON.stringify(obj)))
+    } catch (e) {
+      console.log(e);
+      console.error('Type not found:' + req.params.package + "/" + req.params.serviceType);
+      res.json({})
+    }
+  })
 }
