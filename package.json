@@ -36,16 +36,16 @@
   },
   "homepage": "https://github.com/SnappyRobotics/snappy-ros#readme",
   "dependencies": {
-    "debug": "^2.6.3",
-    "promiscuous": "^0.7.0",
-    "rosnodejs": "^2.0.1"
+    "debug": "^2.6.9",
+    "promiscuous": "^0.7.1",
+    "rosnodejs": "^2.1.1"
   },
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-bump": "^0.8.0",
     "grunt-contrib-jshint": "^1.1.0",
     "istanbul": "^0.4.5",
-    "snyk": "^1.28.1"
+    "snyk": "^1.41.1"
   },
   "snyk": true
 }
