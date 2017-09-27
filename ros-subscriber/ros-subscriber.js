@@ -27,17 +27,6 @@ module.exports = function(RED) {
     var sub_callback = function(msg) {
       var o = JSON.parse(JSON.stringify(msg))
 
-      var count = 0
-      for (var key in o) {
-        if (o.hasOwnProperty(key)) {
-          count++
-        }
-      }
-
-      if (o.data && count <= 1) {
-        o = o.data
-      }
-
       node.send({
         payload: o
       })

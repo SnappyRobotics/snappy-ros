@@ -1,6 +1,6 @@
 {
   "name": "snappy-ros",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "A collection of Node-red nodes for connecting with ROS (Robot Operating System)",
   "scripts": {
     "red": "DEBUG=snappy:* node-red",

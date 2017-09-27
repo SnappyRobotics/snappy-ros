@@ -31,7 +31,7 @@ module.exports = function(RED) {
         .msg[config.typename]
 
       var x = new msgType()
-      x.data = msg.payload
+      x = msg.payload
 
       node.pub.publish(x)
     })
