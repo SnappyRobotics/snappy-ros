@@ -38,7 +38,7 @@
   "dependencies": {
     "debug": "^3.1.0",
     "promiscuous": "^0.7.1",
-    "rosnodejs": "^2.1.1"
+    "rosnodejs": "^3.0.0"
   },
   "devDependencies": {
     "grunt": "^1.0.1",
